@@ -15,7 +15,7 @@ function SaveLog({ children }) {
 
   const getLog = async (format) => {
     try{
-      const response = await serverInstance.get(`/logs/exportlog/${format}`);
+      const response = await serverInstance.get(`/logs/exportlog/${format}/`);
 
       const log = response.data
       const fileSuffix = format === "adif" ? "adi" : "csv";
