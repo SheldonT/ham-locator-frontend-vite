@@ -1,0 +1,69 @@
+/** @format */
+
+.popUp {
+  flex-direction: column;
+  border-radius: 1rem 0 1rem 1rem;
+  font-size: 1.6rem;
+  width: 20vw;
+  top: 100%;
+  right: 100%;
+  z-index: 500;
+  margin: 0 0 0 -0.5rem;
+}
+
+.fileNameInput {
+  display: flex;
+  flex-direction: row;
+  margin: 1rem 0 0.5rem 0;
+}
+.fileName {
+  margin: 0 0 0 0.5rem;
+  width: 50%;
+}
+
+.popUpButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 1rem auto 0.5rem auto;
+}
+
+.saveFile {
+  position: relative;
+}
+
+@media screen and (min-width: 31.1rem) and (max-width: 45rem) {
+  .popUp {
+    width: 30vw;
+    top: 100%;
+    right: 100%;
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: 22.1rem) and (max-width: 31rem) {
+  .popUp {
+    width: 40vw;
+    top: 100%;
+    right: 0;
+    margin: 0;
+  }
+}
+
+@media screen and (min-width: 16.1rem) and (max-width: 22rem) {
+  .popUp {
+    width: 50vw;
+    top: 100%;
+    right: 0;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 16rem) {
+  .popUp {
+    width: 60vw;
+    top: 100%;
+    right: 0;
+    margin: 0;
+  }
+}

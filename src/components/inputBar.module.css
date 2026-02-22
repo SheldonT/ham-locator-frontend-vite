@@ -1,0 +1,163 @@
+/** @format */
+
+.inputBar {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  bottom: 0;
+  padding-bottom: 1rem;
+  z-index: 401;
+}
+
+.callField {
+  width: 8vw;
+}
+
+.freqField {
+  width: 5rem;
+}
+
+.modeInput {
+  background-color: var(--infoBarColor);
+  border-radius: 0.5rem;
+  border-width: 0.2rem;
+  border-color: black;
+  padding: 0.5rem;
+  width: 8rem;
+}
+
+.sigRep {
+  width: 4rem;
+}
+
+.dateField {
+  background-color: var(--infoBarColor);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  width: 10vw;
+}
+
+.comment {
+  width: 10rem;
+}
+
+/*===================================================================*/
+.modeCont {
+  display: flex;
+  position: relative;
+  padding: 0;
+  margin: 0.5rem 1rem 0 0.5rem;
+}
+/*=================================*/
+
+.errorImg {
+  height: 3rem;
+  width: 3rem;
+}
+/*
+@media screen and (min-width: 59.1rem) and (max-width: 63rem) {
+
+}
+
+@media screen and (min-width: 45.1rem) and (max-width: 59rem) {
+
+  .dateField {
+    background-color: var(--infoBarColor);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    width: 13vw;
+  }
+}
+
+@media screen and (min-width: 35.1rem) and (max-width: 45rem) {
+
+  .callField {
+    background-color: var(--infoBarColor);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    width: 11vw;
+  }
+  .dateField {
+    background-color: var(--infoBarColor);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    width: 16vw;
+  }
+}
+
+@media screen and (min-width: 29.1rem) and (max-width: 35rem) {
+  .callField {
+    background-color: var(--infoBarColor);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    width: 14vw;
+  }
+
+  .dateField {
+    background-color: var(--infoBarColor);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    width: 21vw;
+  }
+}
+
+@media screen and (min-width: 24.1rem) and (max-width: 29rem) {
+  .callField {
+    background-color: var(--infoBarColor);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    width: 17vw;
+  }
+
+  .dateField {
+    background-color: var(--infoBarColor);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    width: 25vw;
+  }
+}
+
+@media screen and (min-width: 22.1rem) and (max-width: 24rem) {
+  .callField {
+    background-color: var(--infoBarColor);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    width: 20vw;
+  }
+
+  .dateField {
+    background-color: var(--infoBarColor);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    width: 28vw;
+  }
+}
+
+@media screen and (min-width: 16.6rem) and (max-width: 22rem) {
+  .callField {
+    background-color: var(--infoBarColor);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    width: 23vw;
+  }
+
+  .dateField {
+    background-color: var(--infoBarColor);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    width: 34vw;
+  }
+}
+
+@media screen and (max-width: 16.5rem) {
+}
+
+@media screen and (min-height: 27.1rem) and (max-height: 34rem) {
+}
+
+@media screen and (max-height: 27rem) {
+}
+*/

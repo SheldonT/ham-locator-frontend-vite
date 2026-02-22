@@ -1,0 +1,40 @@
+.leaflet-container {
+    width: 100%;
+    height: 100%;
+  }
+  
+/* leaflet css styles override from
+    https://unpkg.com/leaflet@1.9.3/dist/leaflet.css */
+
+  .leaflet-popup {
+	position: absolute;
+	text-align: center;
+	margin-top: 0;
+    right: -50%;
+	}
+.leaflet-popup-content-wrapper {
+	padding: 1px;
+	text-align: left;
+    border-style: none;
+    border-radius: 0;
+	}
+
+.leaflet-popup-tip-container {
+    display: none;
+	width: 40px;
+	height: 20px;
+	position: absolute;
+	left: 50%;
+	margin-top: -1px;
+	margin-left: -20px;
+	overflow: hidden;
+	pointer-events: none;
+	}
+
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+	background: none;
+	color: none;
+	box-shadow: none;
+	}

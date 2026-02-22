@@ -1,0 +1,72 @@
+/** @format */
+
+.menuBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: 10rem;
+  width: 100%;
+}
+
+.menuEl {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  font-size: 1.6rem;
+  padding-left: 4rem;
+  text-decoration: underline;
+  color: #f48c06;
+  cursor: pointer;
+}
+
+.hMenuEl {
+  margin: 1rem 2rem 1rem 2rem;
+  font-size: 1.6rem;
+  text-decoration: underline;
+
+  cursor: pointer;
+}
+
+.hamburger {
+  position: relative;
+  display: none;
+  background-color: transparent;
+}
+
+.menuImg {
+  width: 2.8rem;
+  height: 2.8rem;
+  margin: auto 1rem -0.8rem 1.5rem;
+}
+
+.menuImg:hover {
+  cursor: pointer;
+}
+
+.menu {
+  flex-direction: column;
+  border-radius: 1rem 0 1rem 1rem;
+  background-color: var(--infoBarColor);
+  box-shadow: 0.2rem 0.2rem 0.5rem var(--shadowColor);
+  padding: 0.5rem;
+  top: 100%;
+  right: 100%;
+  z-index: 1100;
+}
+
+@media screen and (max-width: 54rem) {
+  .hamburger {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 2rem;
+  }
+
+  .menuBar {
+    margin-left: auto;
+  }
+
+  .menuEl {
+    display: none;
+  }
+}
