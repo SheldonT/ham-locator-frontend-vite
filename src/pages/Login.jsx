@@ -42,8 +42,11 @@ function Login() {
           password={true}
         />
         {isAuthenticated === "-1" ? (
-          <div className={login.errorMsg}>Invalid callsign or password.</div>
+          <div className={login.errorMsg}>Invalid email or password.</div>
         ) : null}
+
+        <Link to="/password-reset">Forgot Password</Link>
+
         <div className={login.login}>
           <Button
             name="Login"
@@ -58,6 +61,7 @@ function Login() {
           <p>
             Not registered? <Link to="/register">Create an account.</Link>
           </p>
+
           <p>
             or click{" "}
             <a href="#" onClick={() => guestLogin()}>

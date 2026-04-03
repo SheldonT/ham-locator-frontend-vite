@@ -9,7 +9,7 @@ import PopUp from "./PopUp";
 import SaveLog from "./SaveLog";
 import { SettingsContext } from "../contexts/SettingsContext";
 
-const Settings = React.memo(function Settings({ setHomeVis }) {
+const Settings = React.memo(function Settings({ setHomeVis, setResetPWVis }) {
   const { optionalFields, setOptionalFields, lines, setLines } = useContext(SettingsContext);
   const [openSettings, setOpenSettings] = useState(false);
 
@@ -88,6 +88,20 @@ const Settings = React.memo(function Settings({ setHomeVis }) {
           <label htmlFor="leadLines">Show Lead Lines</label>
         </div>
 
+        {/* <div
+          className={settings.settingsLink}
+          onClick={() => {
+            setHomeVis(true);
+            setOpenSettings(false);
+          }}
+        >
+          Change Home...
+        </div> */}
+        <h4 className={settings.settingsHead}>File</h4>
+        <SaveLog>
+          <div className={settings.settingsLink}>Save Log...</div>
+        </SaveLog>
+        <h4 className={settings.settingsHead}>User Settings</h4>
         <div
           className={settings.settingsLink}
           onClick={() => {
@@ -97,10 +111,15 @@ const Settings = React.memo(function Settings({ setHomeVis }) {
         >
           Change Home...
         </div>
-        <h4 className={settings.settingsHead}>File</h4>
-        <SaveLog>
-          <div className={settings.settingsLink}>Save Log...</div>
-        </SaveLog>
+        <div
+          className={settings.settingsLink}
+          onClick={() => {
+            setResetPWVis(true);
+            setOpenSettings(false);
+          }}
+        >
+          Change Password...
+        </div>
 
         {/*<div className={settings.settingsHead}>
           <Button name="Done" clickEvent={() => setOpenSettings(false)} />

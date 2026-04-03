@@ -26,7 +26,6 @@ const refreshToken = async () => {
 
 serverInstance.interceptors.response.use(
     async response => {
-        console.log(response.headers["x-token-refresh"])
         if (response.headers["x-token-refresh"] === "true") {
 
             const originalRequest = response?.config;
@@ -47,12 +46,19 @@ serverInstance.interceptors.response.use(
         const originalRequest = error?.config;
 
         if ((status === 401 || status === 403 || status == 400) && originalRequest && !originalRequest._retry) {
-
             originalRequest._retry = true;
-            await refreshToken();
-            return serverInstance(originalRequest);
+            try {
+                await refreshToken();
+                return serverInstance(originalRequest);
+            } catch (refreshError) {
+                // If refresh fails, redirect to login
+                window.location.href = "/login";
+                // Optionally clear localStorage/sessionStorage here
+                return Promise.reject(refreshError);
+            }
             
         }
+
         return Promise.reject(error);
     }
 );

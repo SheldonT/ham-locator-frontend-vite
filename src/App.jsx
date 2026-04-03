@@ -6,6 +6,7 @@ import About from "./pages/About";
 import HowTo from "./pages/HowTo";
 import Stats from "./pages/Stats";
 import Log from "./pages/Log";
+import PasswordReset from "./pages/passwordReset";
 import Location from "./components/Location";
 import Login from "./pages/Login";
 
@@ -16,7 +17,7 @@ import {UserContext } from "./contexts/UserContext";
 import "./index.css";
 
 function App() {
-  const [home, setHome] = useState(false);
+  // const [home, setHome] = useState(false);
 
   const { isAuthenticated, setHomeDataFromDB, isCheckingAuth } = useContext(UserContext);
 
@@ -46,13 +47,14 @@ function App() {
           path="/"
           element={
             <Layout
-              showHome={home}
-              setHome={setHome}
+              // showHome={home}
+              // setHome={setHome}
             />
           }
         >
           <Route index element={<IndexRoute />} />
           <Route path="login" element={<Login />} />
+          <Route path="password-reset" element={<PasswordReset />} />
           <Route path="register" element={<Register />} />
           <Route path="instructions" element={<HowTo />} />
           <Route path="about" element={<About />} />
