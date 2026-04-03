@@ -1,6 +1,6 @@
 /** @format */
 import { useState, useEffect, useContext } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout";
 import About from "./pages/About";
 import HowTo from "./pages/HowTo";
@@ -41,7 +41,7 @@ function App() {
   }
 
   return (
-    <BrowserRouter basename={import.meta.env.VITE_BASE_ROUTE || '/'}>
+    <HashRouter>
       <Routes>
         <Route
           path="/"
@@ -62,7 +62,7 @@ function App() {
           <Route path="log" element={<Log />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
