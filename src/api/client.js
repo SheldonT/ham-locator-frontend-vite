@@ -51,8 +51,9 @@ serverInstance.interceptors.response.use(
                 await refreshToken();
                 return serverInstance(originalRequest);
             } catch (refreshError) {
-                // If refresh fails, redirect to login
-                window.location.href = "/login";
+                // If refresh fails, redirect to login using base route
+                const baseRoute = import.meta.env.VITE_BASE_ROUTE || '/';
+                window.location.href = `${baseRoute.replace(/\/$/, '')}/login`;
                 // Optionally clear localStorage/sessionStorage here
                 return Promise.reject(refreshError);
             }
