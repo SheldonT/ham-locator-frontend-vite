@@ -73,6 +73,15 @@ function UserProvider({ children }) {
       }
       }
     }
+    else {
+      setIsAuthenticated("-1"); // This triggers the error message in UI
+    }
+  }, []);
+
+  const removeAuthenticated = useCallback(() => {
+    setIsAuthenticated("0");
+    setAuthUserHome({});
+    // localStorage.removeItem("sessionId");
   }, []);
 
   const setHomeDataFromDB = useCallback(async () => {
@@ -135,6 +144,7 @@ function UserProvider({ children }) {
         setHomeDataFromDB,
         logoutUser,
         isCheckingAuth,
+        removeAuthenticated
       }}
     >
       {children}

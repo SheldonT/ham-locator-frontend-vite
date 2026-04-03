@@ -18,6 +18,7 @@ function TextField({
   warning,
   setWarning,
   leaveFocus,
+  focusCallback,
   exp,
   errMsg,
   errorPopupStyle,
@@ -55,6 +56,9 @@ function TextField({
         onFocus={() => {
           if (setWarning && warning) {
             setWarning(false);
+          }
+          if (focusCallback) {
+            focusCallback();
           }
         }}
         onBlur={(e) => {

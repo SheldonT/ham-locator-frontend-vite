@@ -11,7 +11,7 @@ function Login() {
   const [userName, setUserName] = useState("");
   const [passwd, setPasswd] = useState("");
 
-  const { authenticate, isAuthenticated } = useContext(UserContext);
+  const { authenticate, isAuthenticated, removeAuthenticated } = useContext(UserContext);
 
   const submitLogin = () => {
     authenticate(userName, passwd);
@@ -19,6 +19,12 @@ function Login() {
 
   const guestLogin = () => {
     authenticate("DEMO", "Dem01234");
+  };
+
+  const onEnter = (e) => {
+    if (e.key === "Enter") {
+      submitLogin();
+    }
   };
 
   return (
@@ -31,6 +37,8 @@ function Login() {
           setValue={setUserName}
           placeHolder="Email Address"
           isValid={true}
+          keyDown={onEnter}
+          focusCallback={removeAuthenticated}
         />
 
         <TextField
@@ -40,6 +48,8 @@ function Login() {
           placeHolder="Password"
           isValid={true}
           password={true}
+          keyDown={onEnter}
+          focusCallback={removeAuthenticated}
         />
         {isAuthenticated === "-1" ? (
           <div className={login.errorMsg}>Invalid email or password.</div>
@@ -51,9 +61,9 @@ function Login() {
           <Button
             name="Login"
             clickEvent={() => {
-              if (userName !== "" && passwd !== "") {
+
                 submitLogin();
-              }
+              
             }}
           />
         </div>
@@ -62,13 +72,13 @@ function Login() {
             Not registered? <Link to="/register">Create an account.</Link>
           </p>
 
-          <p>
+          {/* <p>
             or click{" "}
             <a href="#" onClick={() => guestLogin()}>
               here
             </a>{" "}
             to login as a guest.
-          </p>
+          </p> */}
         </div>
       </div>
     </div>
