@@ -56,7 +56,10 @@ function About() {
         .
       </p>
       <p>
-        HamLocator backend is hosted on <a href="https://fly.io/">fly.io</a>
+        HamLocator backend is hosted on Google Cloud Run, and the frontend in GitHub Pages.
+      </p>
+      <p>
+        Authentication is handled by <a href="https://github.com/SheldonT/Keystone-Django" target="_blank" rel="noreferrer">Keystone</a>, which provides a simple and secure way to manage Firebase authentication.
       </p>
     </div>
   );
