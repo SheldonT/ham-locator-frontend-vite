@@ -47,10 +47,11 @@ function TextField({
         disabled={disarm ? true : false}
         data-testid="inputField"
         onChange={(e) => {
-          setValue(e.target.value.replace(exp, ""));
+          const cleanValue = exp ? e.target.value.replace(exp, "") : e.target.value;
+          setValue(cleanValue);
 
           if (validate) {
-            setValid(validate(e.target.value.replace(exp, ""), setErrorMsg));
+            setValid(validate(cleanValue, setErrorMsg));
           }
         }}
         onFocus={() => {
@@ -62,11 +63,12 @@ function TextField({
           }
         }}
         onBlur={(e) => {
+          const cleanValue = exp ? e.target.value.replace(exp, "") : e.target.value;
           if (validate) {
-            setValid(validate(e.target.value.replace(exp, ""), setErrorMsg));
+            setValid(validate(cleanValue, setErrorMsg));
           }
           if (leaveFocus) {
-            leaveFocus(e.target.value.replace(exp, ""));
+            leaveFocus(cleanValue);
           }
         }}
         onKeyDown={(e) => {

@@ -27,6 +27,12 @@ function Login() {
     }
   };
 
+  const clearErrorState = () => {
+    if (isAuthenticated === "-1") {
+      removeAuthenticated();
+    }
+  };
+
   return (
     <div className={login.loginBG}>
       <div className={login.main}>
@@ -38,7 +44,7 @@ function Login() {
           placeHolder="Email Address"
           isValid={true}
           keyDown={onEnter}
-          focusCallback={removeAuthenticated}
+          focusCallback={clearErrorState}
         />
 
         <TextField
@@ -49,7 +55,7 @@ function Login() {
           isValid={true}
           password={true}
           keyDown={onEnter}
-          focusCallback={removeAuthenticated}
+          focusCallback={clearErrorState}
         />
         {isAuthenticated === "-1" ? (
           <div className={login.errorMsg}>Invalid email or password.</div>
@@ -61,9 +67,7 @@ function Login() {
           <Button
             name="Login"
             clickEvent={() => {
-
-                submitLogin();
-              
+              submitLogin();
             }}
           />
         </div>
