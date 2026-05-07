@@ -9,6 +9,7 @@ import Home from "../components/Home";
 import ChangePassword from "../components/changePassword";
 import Settings from "../components/Settings";
 import { UserContext } from "../contexts/UserContext";
+import { LogContext } from "../contexts/LogContext";
 
 function Layout(
 //   {
@@ -23,33 +24,14 @@ function Layout(
   const navigate = useNavigate();
 
   const { logoutUser, isAuthenticated } = useContext(UserContext);
+  const { setLog } = useContext(LogContext);
 
-  const logoutAction = () => {
-    logoutUser();
+  const logoutAction = async () => {
+    await logoutUser();
+    setLog([]);
 
     navigate("/login");
   };
-
-  const handleBeforeUnload = (event) => {
-    const demoFlag =
-      JSON.parse(localStorage.getItem("sessionId")).demo || false;
-
-    if (demoFlag) {
-      // run your function here
-      logoutUser();
-      const message =
-        "Guest user will now logout. Any logs will be deleted. Do you want to close the tab?";
-      event.preventDefault(); // required to show a confirmation dialog
-      event.returnValue = message;
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  });
 
   return (
     <>

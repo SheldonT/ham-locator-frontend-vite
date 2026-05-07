@@ -22,7 +22,7 @@ function Menu() {
       setItemSelected("");
       nav("/login");
     }
-  }, [itemSelected, isAuthenticated]);
+  }, [itemSelected, isAuthenticated, nav]);
 
   return (
     <div

@@ -131,8 +131,11 @@ function UserProvider({ children }) {
       }
     } catch (e) {
       console.log(e);
+    } finally {
+      setIsAuthenticated("0");
+      setAuthUserHome({});
     }
-  }, [isAuthenticated]);
+  }, []);
 
   return (
     <UserContext.Provider
