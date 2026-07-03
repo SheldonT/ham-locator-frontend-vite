@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
 "dependencies": {
-    "-": "^0.0.1",
     "@joergdietrich/leaflet.terminator": "^1.1.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
