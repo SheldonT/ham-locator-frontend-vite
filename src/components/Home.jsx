@@ -1,5 +1,5 @@
 /** @format */
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import FocusTrap from "focus-trap-react";
 import axios from "axios";
 import TextField from "./TextField";
@@ -11,6 +11,7 @@ import { SERVER_DOMAIN } from "../constants";
 import serverInstance from "../api/client";
 
 function Home({ setVis }) {
+
   const [callsign, setCallsign] = useState("");
   const [email, setEmail] = useState("");
   const [gridloc, setGridloc] = useState("");
@@ -22,7 +23,23 @@ function Home({ setVis }) {
 
   const homeResp = useCallData(callsign);
 
+  useEffect( () => {
+    const getUser = async () => {
+      const response =  await serverInstance.get("/users/getuser");
+      
+      setCallsign(response.data.data.callsign);
+      setEmail(response.data.data.email);
+      setGridloc(response.data.data.gridloc);
+      setUnit(response.data.data.units);
+    };
+
+    console.log(authUserHome);
+
+    getUser();
+  }, []);
+
   const submit = () => {
+
     if (Object.keys(homeResp).length !== 0) {
       let dbUpdate = {
         userId: isAuthenticated,
@@ -35,20 +52,27 @@ function Home({ setVis }) {
         utc: parseFloat(homeResp.utc),
       };
 
+
       if (email.length !== 0) dbUpdate = { email: email, ...dbUpdate };
-      if (unit.length !== 0) dbUpdate = { units: unit, ...dbUpdate };
+      if (unit.length !== 0) {
+        dbUpdate = { units: unit, ...dbUpdate };
+      }
 
       serverInstance
         .post(`/users/edituser/`, dbUpdate)
         .then((response) => {
-          if (response.status === 200) {
+          if (response.status === 200 || response.status === 201) {
             setVis(false);
+            setHomeDataFromDB()
           }
         })
         .catch((e) => console.log(e));
+
+
     } else {
       setVis(false);
     }
+    
   };
 
   return (

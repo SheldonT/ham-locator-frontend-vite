@@ -5,6 +5,18 @@ import XMLParser from "react-xml-parser";
 import callsign from "callsign";
 import { canPrefix, gps, areaCode } from "../constants";
 
+function toAsciiText(value) {
+  if (!value) return "";
+
+  // Strip accents/diacritics and remove non-ASCII characters.
+  return value
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^\x20-\x7E]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function countryCoord(country, call, prefix) {
   const numberReg = /\d/;
   let cCoord = [];
@@ -67,6 +79,8 @@ export default function useCallData(call) {
           let rTimeZone = callData.getElementsByTagName("utc")[0].value;
           let rITU = callData.getElementsByTagName("itu")[0].value;
 
+          rCountry = toAsciiText(rCountry);
+
           console.log("Using hamQTH.com");
 
           setData({
@@ -89,7 +103,7 @@ export default function useCallData(call) {
                   canPrefix.find((i) => i.prefix === res.prefix).name + ", ";
               }
 
-              let rCountry = res.areaname;
+              let rCountry = toAsciiText(res.areaname);
               let rDetails = province + res.areaname;
               let rPrefix = res.prefix;
               let rTimeZone = res.timezone;

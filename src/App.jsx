@@ -1,6 +1,6 @@
 /** @format */
 import { useState, useEffect, useContext } from "react";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./pages/Layout";
 import About from "./pages/About";
 import HowTo from "./pages/HowTo";
@@ -53,7 +53,16 @@ function App() {
           }
         >
           <Route index element={<IndexRoute />} />
-          <Route path="login" element={<Login />} />
+          <Route
+            path="login"
+            element={
+              isAuthenticated !== "0" && isAuthenticated !== "-1" ? (
+                <Navigate to="/" replace />
+              ) : (
+                <Login />
+              )
+            }
+          />
           <Route path="password-reset" element={<PasswordReset />} />
           <Route path="register" element={<Register />} />
           <Route path="instructions" element={<HowTo />} />

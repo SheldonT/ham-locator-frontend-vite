@@ -45,7 +45,7 @@ serverInstance.interceptors.response.use(
         const status = error.response?.status;
         const originalRequest = error?.config;
 
-        if ((status === 401 || status === 403 || status == 400) && originalRequest && !originalRequest._retry) {
+        if ((status === 401 || status === 403) && originalRequest && !originalRequest._retry) {
             originalRequest._retry = true;
             try {
                 await refreshToken();

@@ -5,7 +5,6 @@ import FocusTrap from "focus-trap-react";
 import axios from "axios";
 import TextField from "./TextField";
 import Button from "./Button";
-import useCallData from "../hooks/useCallData";
 import { UserContext } from "../contexts/UserContext";
 import changePassword from "./changePassword.module.css";
 import { SERVER_DOMAIN } from "../constants";

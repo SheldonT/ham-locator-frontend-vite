@@ -16,12 +16,15 @@ function Menu() {
   const { isAuthenticated } = useContext(UserContext);
 
   useEffect(() => {
-    if (isAuthenticated !== "0") {
-      nav(`/${itemSelected}`);
-    } else {
+    if (isAuthenticated === "0") {
       setItemSelected("");
-      nav("/login");
+      return;
     }
+
+    if (itemSelected !== "") {
+      nav(`/${itemSelected}`);
+    }
+
   }, [itemSelected, isAuthenticated, nav]);
 
   return (
