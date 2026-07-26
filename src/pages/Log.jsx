@@ -21,7 +21,7 @@ function Log() {
   const [record, setRecord] = useState({});
   const [infoList, setInfoList] = useState([]);
 
-  const { isAuthenticated } = useContext(UserContext);
+  const { isAuthenticated, removeAuthenticated } = useContext(UserContext);
   const { optionalFields } = useContext(SettingsContext);
 
   //const isAuth = JSON.parse(
@@ -62,6 +62,12 @@ function Log() {
         console.log("No Log Found");
       }
     } catch (e) {
+      if (e.response?.status === 401 || e.response?.status === 403) {
+        setInfoList([]);
+        removeAuthenticated();
+        return;
+      }
+
       alert(`Server did not respond. Please try again later. \n\n ${e}`);
     }
   };
@@ -79,6 +85,12 @@ function Log() {
     try {
       await serverInstance.post(`/logs/editrecord/`, newRecord);
     } catch (e) {
+      if (e.response?.status === 401 || e.response?.status === 403) {
+        setInfoList([]);
+        removeAuthenticated();
+        return;
+      }
+
       alert(`Server did not respond. Please try again later. \n\n ${e}`);
     }
   };
@@ -87,6 +99,12 @@ function Log() {
     try {
       await serverInstance.delete(`/logs/deleterecord/${record.recordId}/`);
     } catch (e) {
+      if (e.response?.status === 401 || e.response?.status === 403) {
+        setInfoList([]);
+        removeAuthenticated();
+        return;
+      }
+
       alert(`Server did not respond. Please try again later. \n\n ${e}`);
     }
   };

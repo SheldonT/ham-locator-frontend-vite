@@ -12,6 +12,10 @@ const refreshClient = axios.create({
     withCredentials: true
 });
 
+const notifyAuthExpired = () => {
+    window.dispatchEvent(new CustomEvent("auth:expired"));
+};
+
 const refreshToken = async () => {
     try {
         const response = await refreshClient.post('/users/refresh-tokens/');
@@ -51,13 +55,14 @@ serverInstance.interceptors.response.use(
                 await refreshToken();
                 return serverInstance(originalRequest);
             } catch (refreshError) {
-                // If refresh fails, redirect to login using hash route for GitHub Pages compatibility
-                const baseRoute = import.meta.env.VITE_BASE_ROUTE || '/';
-                window.location.href = `${baseRoute.replace(/\/$/, '')}/#/login`;
-                // Optionally clear localStorage/sessionStorage here
+                notifyAuthExpired();
                 return Promise.reject(refreshError);
             }
             
+        }
+
+        if (status === 401 || status === 403) {
+            notifyAuthExpired();
         }
 
         return Promise.reject(error);

@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useContext } from "react";
 import useCallData from "../hooks/useCallData";
-import axios from "axios";
 import InfoBar from "./InfoBar";
 import CallMap from "./CallMap";
 import InputBar from "./InputBar";
@@ -12,9 +11,7 @@ import location from "./location.module.css";
 import { UserContext } from "../contexts/UserContext";
 import { LogContext } from "../contexts/LogContext";
 import { SettingsContext } from "../contexts/SettingsContext";
-import { SERVER_DOMAIN } from "../constants";
 import serverInstance from "../api/client";
-import { json } from "react-router-dom";
 
 function validateEntry(entry, currentList) {
   let result = false;
@@ -75,7 +72,7 @@ function Location() {
 
   const jsonResp = useCallData(contactInfo.contactCall);
 
-  const { isAuthenticated, authUserHome } = useContext(UserContext);
+  const { isAuthenticated, authUserHome, removeAuthenticated } = useContext(UserContext);
   const { optionalFields, lines } = useContext(SettingsContext);
   const { log, setLog } = useContext(LogContext);
 
@@ -112,44 +109,41 @@ function Location() {
 
       console.log(newRecord);
 
-      try {
-        await serverInstance.post(`/logs/addrecord/`, newRecord);
-      } catch (error) {
-        console.log(error);
-      }
+      await serverInstance.post(`/logs/addrecord/`, newRecord);
     };
 
-    if (validateEntry(jsonResp, log /*infoList*/)) {
-      console.log("An error occured. Please try again.");
-    } else {
-      if (jsonResp.anchor && contactInfo) {
-        const currDate = new Date();
-        const utcDate = formatDate(currDate);
+    const addRecord = async () => {
+      if (validateEntry(jsonResp, log)) {
+        console.log("An error occured. Please try again.");
+        return;
+      }
 
-        const utcTime =
-          utcHrs(currDate) +
-          ":" +
-          utcMins(currDate) +
-          ":" +
-          utcSeconds(currDate);
+      if (!(jsonResp.anchor && contactInfo)) {
+        return;
+      }
 
-        setId(id + 1);
+      const currDate = new Date();
+      const utcDate = formatDate(currDate);
+      const utcTime =
+        utcHrs(currDate) +
+        ":" +
+        utcMins(currDate) +
+        ":" +
+        utcSeconds(currDate);
 
-        //setInfoList
+      const newData = {
+        ...contactInfo,
+        ...jsonResp,
+        id: id,
+        contactDate: utcDate,
+        contactTime: utcTime,
+      };
+
+      try {
+        await insertToDB(newData);
+        setId((prevId) => prevId + 1);
         setLog((previousInfo) => {
-          const newData = {
-            ...contactInfo,
-            ...jsonResp,
-            id: id,
-            contactDate: utcDate,
-            contactTime: utcTime,
-          };
-
-          insertToDB(newData);
-
-          let dataCollection = [newData, ...previousInfo];
-
-          //localStorage.setItem("list", JSON.stringify(dataCollection));
+          const dataCollection = [newData, ...previousInfo];
 
           dataCollection.sort((a, b) => {
             return new Date(b.contact_date) - new Date(a.contact_date);
@@ -157,8 +151,18 @@ function Location() {
 
           return dataCollection;
         });
+      } catch (error) {
+        if (error.response?.status === 401 || error.response?.status === 403) {
+          setLog([]);
+          removeAuthenticated();
+          return;
+        }
+
+        console.log(error);
       }
-    }
+    };
+
+    addRecord();
   }, [jsonResp]);
 
   useEffect(() => {
@@ -197,11 +201,11 @@ function Location() {
         }
       } catch (e) {
         if (e.response?.status === 401 || e.response?.status === 403) {
-        console.log('Invalid credentials');
-       
-      } else {
-        console.error('Login error:', e);
-      }
+          setLog([]);
+          removeAuthenticated();
+        } else {
+          console.error("Login error:", e);
+        }
       }
     };
 

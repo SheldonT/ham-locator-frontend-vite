@@ -1,6 +1,6 @@
 /** @format */
 
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import menuImg from "../assets/hamburgerMenu.svg";
@@ -9,23 +9,15 @@ import PopUp from "./PopUp";
 
 function Menu() {
   const [openMenu, setOpenMenu] = useState(false);
-  const [itemSelected, setItemSelected] = useState("");
 
   const nav = useNavigate();
 
   const { isAuthenticated } = useContext(UserContext);
 
-  useEffect(() => {
-    if (isAuthenticated === "0") {
-      setItemSelected("");
-      return;
-    }
-
-    if (itemSelected !== "") {
-      nav(`/${itemSelected}`);
-    }
-
-  }, [itemSelected, isAuthenticated, nav]);
+  const navigateTo = (path) => {
+    nav(path);
+    setOpenMenu(false);
+  };
 
   return (
     <div
@@ -35,7 +27,7 @@ function Menu() {
       <div
         className={menu.menuEl}
         onClick={() => {
-          setItemSelected("");
+          navigateTo("/");
         }}
       >
         {" "}
@@ -44,7 +36,7 @@ function Menu() {
       <div
         className={menu.menuEl}
         onClick={() => {
-          setItemSelected("log");
+          navigateTo("/log");
         }}
       >
         {" "}
@@ -53,7 +45,7 @@ function Menu() {
       <div
         className={menu.menuEl}
         onClick={() => {
-          setItemSelected("stats");
+          navigateTo("/stats");
         }}
       >
         {" "}
@@ -62,7 +54,7 @@ function Menu() {
       <div
         className={menu.menuEl}
         onClick={() => {
-          setItemSelected("instructions");
+          navigateTo("/instructions");
         }}
       >
         {" "}
@@ -71,7 +63,7 @@ function Menu() {
       <div
         className={menu.menuEl}
         onClick={() => {
-          setItemSelected("about");
+          navigateTo("/about");
         }}
       >
         {" "}
@@ -89,7 +81,7 @@ function Menu() {
           <div
             className={menu.hMenuEl}
             onClick={() => {
-              setItemSelected("");
+              navigateTo("/");
             }}
           >
             Home
@@ -97,7 +89,7 @@ function Menu() {
           <div
             className={menu.hMenuEl}
             onClick={() => {
-              setItemSelected("log");
+              navigateTo("/log");
             }}
           >
             Full Log
@@ -105,7 +97,7 @@ function Menu() {
           <div
             className={menu.hMenuEl}
             onClick={() => {
-              setItemSelected("stats");
+              navigateTo("/stats");
             }}
           >
             Log Stats
@@ -113,7 +105,7 @@ function Menu() {
           <div
             className={menu.hMenuEl}
             onClick={() => {
-              setItemSelected("instructions");
+              navigateTo("/instructions");
             }}
           >
             Instructions
@@ -121,7 +113,7 @@ function Menu() {
           <div
             className={menu.hMenuEl}
             onClick={() => {
-              setItemSelected("about");
+              navigateTo("/about");
             }}
           >
             About

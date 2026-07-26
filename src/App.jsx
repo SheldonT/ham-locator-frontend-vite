@@ -16,6 +16,14 @@ import {UserContext } from "./contexts/UserContext";
 
 import "./index.css";
 
+function RequireAuth({ children, isAuthenticated }) {
+  if (isAuthenticated === "0" || isAuthenticated === "-1") {
+    return <Navigate to="/login" replace />;
+  }
+
+  return children;
+}
+
 function App() {
   // const [home, setHome] = useState(false);
 
@@ -65,10 +73,38 @@ function App() {
           />
           <Route path="password-reset" element={<PasswordReset />} />
           <Route path="register" element={<Register />} />
-          <Route path="instructions" element={<HowTo />} />
-          <Route path="about" element={<About />} />
-          <Route path="stats" element={<Stats />} />
-          <Route path="log" element={<Log />} />
+          <Route
+            path="instructions"
+            element={
+              <RequireAuth isAuthenticated={isAuthenticated}>
+                <HowTo />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="about"
+            element={
+              <RequireAuth isAuthenticated={isAuthenticated}>
+                <About />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="stats"
+            element={
+              <RequireAuth isAuthenticated={isAuthenticated}>
+                <Stats />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="log"
+            element={
+              <RequireAuth isAuthenticated={isAuthenticated}>
+                <Log />
+              </RequireAuth>
+            }
+          />
         </Route>
       </Routes>
     </HashRouter>

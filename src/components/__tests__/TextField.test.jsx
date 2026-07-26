@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom/extend-expect";
+import "@testing-library/jest-dom";
 
 import TextField from "../TextField";
 
@@ -12,7 +12,7 @@ describe("Text Field Component", () => {
 
     const findField = screen.getByTestId("inputField");
 
-    expect(findField).toBeInDocument;
+    expect(findField).toBeInTheDocument();
   });
 
   test("Input is enabled by default, and no error is displayed", () => {

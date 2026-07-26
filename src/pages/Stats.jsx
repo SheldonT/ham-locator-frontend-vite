@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
-import axios from "axios";
 import {
   VictoryBar,
   VictoryChart,
@@ -10,7 +9,7 @@ import {
   VictoryTheme,
   VictoryLabel,
 } from "victory";
-import { countryCode, bandDef, SERVER_DOMAIN } from "../constants";
+import { countryCode, bandDef } from "../constants";
 import serverInstance from "../api/client";
 import "./stats.css";
 
@@ -69,7 +68,7 @@ function Stats() {
   const [countries, setCountries] = useState([]);
   const [bands, setBands] = useState([]);
 
-  const { isAuthenticated } = useContext(UserContext);
+  const { removeAuthenticated } = useContext(UserContext);
 
   const getLog = async () => {
     try {
@@ -83,6 +82,14 @@ function Stats() {
       setCountries(getCountry(log, countries));
       setBands(getBands(log));
     } catch (e) {
+      if (e.response?.status === 401 || e.response?.status === 403) {
+        setListLen(0);
+        setCountries([]);
+        setBands([]);
+        removeAuthenticated();
+        return;
+      }
+
       console.log(e);
     }
   };

@@ -52,6 +52,20 @@ function UserProvider({ children }) {
     userSession();
   }, []);
 
+  useEffect(() => {
+    const onAuthExpired = () => {
+      setIsAuthenticated("0");
+      setAuthUserHome({});
+      setIsCheckingAuth(false);
+    };
+
+    window.addEventListener("auth:expired", onAuthExpired);
+
+    return () => {
+      window.removeEventListener("auth:expired", onAuthExpired);
+    };
+  }, []);
+
   const authenticate = useCallback(async (userName, passwd) => {
     if (userName !== "" && passwd !== "") {
       try {

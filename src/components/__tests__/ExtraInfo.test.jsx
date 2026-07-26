@@ -5,12 +5,6 @@ import { render, screen } from "@testing-library/react";
 
 import ExtraInfo from "../ExtraInfo";
 
-jest.mock("axios", () => ({
-  get: jest.fn(() => Promise.resolve({ data: {} })),
-  post: jest.fn(() => Promise.resolve({ data: {} })),
-  // Add other methods that you use in your code
-}));
-
 describe("Menu", () => {
   test("Show country based on call prefix", async () => {
     const info = {
@@ -26,7 +20,7 @@ describe("Menu", () => {
     const checkForDistance = screen.queryByText("Distance");
     const checkForITU = screen.queryByText("ITU Zone");
 
-    expect(findTimeZone).toBeInDocument;
+    expect(findTimeZone).toBeInTheDocument();
     expect(checkForTimeZone).toBeNull();
     expect(checkForDistance).toBeNull();
     expect(checkForITU).toBeNull();
